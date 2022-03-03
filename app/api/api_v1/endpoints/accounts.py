@@ -1,5 +1,6 @@
+from telnetlib import STATUS
 from typing import Any, List
-from fastapi import APIRouter, Body, Depends, HTTPException
+from fastapi import APIRouter, Body, Depends, HTTPException, status
 from app import crud, models, schemas
 from app.api import deps
 
@@ -8,17 +9,20 @@ from sqlalchemy.orm import Session
 router = APIRouter()
 
 @router.post("/signup")
-async def sign_up(
+def sign_up(
     *,
     db: Session = Depends(deps.get_db),
     username: str = Body(...),
     password: str = Body(...),
     ) -> Any:
+    """
+    Sign up new account.
+    """
     account = crud.account.get_by_username(db, username=username)
     if account:
         raise HTTPException(
-            status_code=400,
-            detail="The user with this username already exists in the system.",
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="The account with this username already exists in the system.",
         )
         
     account_in = schemas.AccountCreate(username=username, password=password)
@@ -29,9 +33,9 @@ async def sign_up(
 @router.get("/me", response_model=schemas.Account)
 def read_user_me(
     db: Session = Depends(deps.get_db),
-    current_user: models.Account = Depends(deps.get_current_account),
+    current_account: models.Account = Depends(deps.get_current_account),
 ) -> Any:
     """
-    Get current user.
+    Get current account.
     """
-    return current_user
+    return current_account

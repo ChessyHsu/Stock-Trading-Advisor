@@ -1,3 +1,4 @@
+from os import stat
 from typing import Generator
 
 from fastapi import Depends, HTTPException, status
@@ -38,5 +39,5 @@ def get_current_account(
         )
     account = crud.account.get(db, id=token_data.sub)
     if not account:
-        raise HTTPException(status_code=404, detail="Account not found")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Account not found")
     return account
