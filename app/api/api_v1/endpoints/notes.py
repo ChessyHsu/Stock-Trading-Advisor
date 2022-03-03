@@ -17,7 +17,7 @@ def read_notes(
     Retrieve notes.
     """
     notes = crud.notes.get_notes(db=db)
-    print(notes)
+    # notes = crud.notes.get_multi(db=db)
     return notes
 
 
@@ -30,5 +30,5 @@ def create_note(
     """
     Create new item.
     """
-    note = crud.notes.create_note(db=db, obj_in=item_in)
+    note = crud.notes.create(db=db, obj_in=item_in)
     return note
