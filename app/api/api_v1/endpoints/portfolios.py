@@ -3,8 +3,8 @@ from fastapi import APIRouter
 router = APIRouter()
 
 
-@router.get("/")
-async def get_portfolios():
+@router.get("/{username}")
+async def get_user_portfolios(username: str):
     return {"username": "fakecurrentuser"}
 
 
