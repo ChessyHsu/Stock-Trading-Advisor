@@ -1,7 +1,8 @@
 from pydantic import BaseModel
+from typing import Optional
 
 class Note(BaseModel):
-    id: int
+    id: Optional[int] = None
     text: str
     completed: bool
     
