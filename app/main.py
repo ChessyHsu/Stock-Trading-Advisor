@@ -1,11 +1,9 @@
-from typing import List
-
-
-import sqlalchemy
 from fastapi import FastAPI
 
-from config import DBconfig
+from app.db.init_db import init_db
+from app.db.session import SessionLocal
 
+from app.core.config import settings
 from app.api.api_v1.api import api_router
 
 # # SQLAlchemy specific code, as with any other app
@@ -14,9 +12,15 @@ from app.api.api_v1.api import api_router
 
 app = FastAPI()
 
+@app.on_event("startup")
+async def startup_event():
+    # Initialize db
+    db = SessionLocal()
+    init_db(db)
 
+    
 @app.get("/")
 def hello():
     return {"message":"Hello Chessy.com !!"}
 
-app.include_router(api_router, prefix="/api/v1")
+app.include_router(api_router, prefix=settings.API_V1_STR)
