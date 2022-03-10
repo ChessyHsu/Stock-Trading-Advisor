@@ -16,5 +16,5 @@ class Price(BaseModel):
         orm_mode = True
         
 
-class PriceIn(Price):
-    timestamp: date
+# class PriceIn(Price):
+#     timestamp: date
