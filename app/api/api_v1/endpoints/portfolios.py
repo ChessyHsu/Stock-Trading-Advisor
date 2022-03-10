@@ -28,19 +28,20 @@ def get_user_portfolios(
 def create_portfolio(*,
     db: Session = Depends(deps.get_db),
     item_in: schemas.PortfolioCreate,
+    current_account: models.Account = Depends(deps.get_current_account)
 ) -> Any:
     """
     Create new portfolio.
     """
-    account = crud.account.get(db, id=item_in.ownerId)
-    if not account:
+    if not current_account:
         raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="The account with the id is not exists in the system.",
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Authentication not passed",
+            headers={"WWW-Authenticate": "Bearer"},
         )
         
     portfolio_in = schemas.PortfolioCreate(
-                        ownerId=item_in.ownerId,
+                        ownerId=current_account.id,
                         portfolioName=item_in.portfolioName,
                     )
     
