@@ -28,7 +28,7 @@ def sign_up(
     account_in = schemas.AccountCreate(username=username, password=password)
     print(account_in)
     account = crud.account.create(db, obj_in=account_in)
-    return account
+    return {"success": True}
 
 @router.get("/me", response_model=schemas.Account)
 def read_user_me(
