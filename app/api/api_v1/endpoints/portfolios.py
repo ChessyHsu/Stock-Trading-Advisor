@@ -27,7 +27,7 @@ def get_user_portfolios(
 @router.post("/", response_model=schemas.Portfolio)
 def create_portfolio(*,
     db: Session = Depends(deps.get_db),
-    item_in: schemas.PortfolioCreate,
+    item_in: schemas.PortfolioBase,
     current_account: models.Account = Depends(deps.get_current_account)
 ) -> Any:
     """
