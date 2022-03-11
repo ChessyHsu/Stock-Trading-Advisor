@@ -5,7 +5,7 @@ from sqlalchemy.orm import relationship
 from app.db.base_class import Base
 
 
-class Prices(Base):
+class Price(Base):
     timestamp = Column(Date, primary_key=True)
     symbol = Column(String, primary_key=True)
     open = Column(Float)
