@@ -1,6 +1,5 @@
 from typing import Any, List
 from app.models import portfolio
-from app.schemas import notes
 from datetime import date
 from fastapi import APIRouter, Body, Depends, HTTPException, status
 from sqlalchemy.orm import Session
@@ -15,6 +14,9 @@ def get_user_portfolios(
     db: Session = Depends(deps.get_db),
     current_account: models.Account = Depends(deps.get_current_account)
 ):
+    """
+    Get users portfolio by checking their token
+    """
     if not current_account:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
@@ -56,7 +58,9 @@ def get_portfolio_detail(
     db: Session = Depends(deps.get_db),
     current_account: models.Account = Depends(deps.get_current_account)
 ):
-
+    """
+    Get portfolio detail by portfolio id
+    """
     portfolio = crud.portfolio.get(db, id=portfolio_id)
     if not portfolio:
         raise HTTPException(
@@ -77,6 +81,7 @@ def update_portfolio(
 ) -> Any:
     """
     Update stock in portfolio.
+    This function support add and remove operations
     """
         
     portfolio = crud.portfolio.get(db, id=portfolio_id)

@@ -6,6 +6,10 @@ from passlib.context import CryptContext
 
 from app.core.config import settings
 
+"""
+Security settings
+"""
+
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 ALGORITHM = "HS256"
@@ -13,6 +17,9 @@ ALGORITHM = "HS256"
 def create_access_token(
     subject: Union[str, Any], expires_delta: timedelta = None
 ) -> str:
+    """
+    Create JWT access token
+    """
     if expires_delta:
         expire = datetime.utcnow() + expires_delta
     else:
@@ -24,8 +31,14 @@ def create_access_token(
     return encoded_jwt
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
+    """
+    Compare user's password with the hashed one stored in db
+    """
     return pwd_context.verify(plain_password, hashed_password)
 
 
 def get_password_hash(password: str) -> str:
+    """
+    Hash user's password
+    """
     return pwd_context.hash(password)

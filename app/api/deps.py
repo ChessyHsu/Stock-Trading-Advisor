@@ -12,11 +12,18 @@ from app.core import security
 from app.core.config import settings
 from app.db.session import SessionLocal
 
+"""
+These are reusable dependency functions
+"""
+
 reusable_oauth2 = OAuth2PasswordBearer(
     tokenUrl=f"{settings.API_V1_STR}/login"
 )
 
 def get_db() -> Generator:
+    """
+    Get DB session
+    """
     try:
         db = SessionLocal()
         yield db
@@ -27,6 +34,9 @@ def get_db() -> Generator:
 def get_current_account(
     db: Session = Depends(get_db), token: str = Depends(reusable_oauth2)
 ) -> models.Account:
+    """
+    Get current user account by decoding the passed JWT token.
+    """
     try:
         payload = jwt.decode(
             token, settings.SECRET_KEY, algorithms=[security.ALGORITHM]

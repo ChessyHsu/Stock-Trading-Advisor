@@ -1,6 +1,10 @@
 from datetime import date
 from pydantic import BaseModel
 
+"""
+Price Schemas
+"""
+
 class Price(BaseModel):
     timestamp: date
     symbol: str

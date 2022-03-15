@@ -1,5 +1,8 @@
 from pydantic import BaseModel
 
+"""
+Filter Schemas
+"""
 class Filter(BaseModel):
     filter_name: str
     type: str

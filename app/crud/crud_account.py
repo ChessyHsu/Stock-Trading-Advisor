@@ -9,6 +9,9 @@ from app.schemas.account import AccountCreate, AccountUpdate
 
 
 class CRUDUser(CRUDBase[Account, AccountCreate, AccountUpdate]):
+    """
+    User CRUD class
+    """
     def get_by_username(self, db: Session, *, username: str) -> Optional[Account]:
         return db.query(Account).filter(Account.username == username).first()
 

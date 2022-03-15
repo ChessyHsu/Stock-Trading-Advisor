@@ -1,6 +1,10 @@
 from typing import Optional
 from pydantic import BaseModel
 
+"""
+Account Schemas
+"""
+
 class AccountBase(BaseModel):
     username: Optional[str] = None
 

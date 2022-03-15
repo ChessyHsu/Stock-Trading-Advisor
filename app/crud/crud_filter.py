@@ -7,6 +7,9 @@ from app.models.filter import Filter
 
 
 class CRUDItem(CRUDBase[Filter, Any, Any]):
+    """
+    Filter CRUD class
+    """
     def get_filter_all(
         self, db: Session) -> List[Filter]:
         cur = db.execute('SELECT * FROM filter')

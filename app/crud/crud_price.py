@@ -7,6 +7,9 @@ from app.models.price import Price
 
 
 class CRUDItem(CRUDBase[Price, Any, Any]):
+    """
+    Price CRUD class
+    """
     def get_prices_by_date(
         self, db: Session, date, sortby, order) -> List[Price]:
         cur = db.execute('SELECT * FROM price \

@@ -4,6 +4,9 @@ from sqlalchemy.orm import relationship
 
 from app.db.base_class import Base
 
+"""
+Price ORM model(Unused)
+"""
 
 class Price(Base):
     timestamp = Column(Date, primary_key=True)

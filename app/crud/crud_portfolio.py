@@ -13,6 +13,9 @@ from app.schemas.portfolio import PortfolioCreate, PortfolioUpdate, PortfolioSto
 ##################
 
 class CRUDPortfolioStock(CRUDBase[PortfolioStock, PortfolioStockCreate, Any]):
+    """
+    Portfolio's Stock CRUD class
+    """
     # Disable update function
     def update(
         self,
@@ -42,7 +45,9 @@ portfolio_stock = CRUDPortfolioStock(PortfolioStock)
 ##################
 
 class CRUDPortfolio(CRUDBase[Portfolio, PortfolioCreate, PortfolioUpdate]):
-
+    """
+    Portfolio CRUD class
+    """
     def add_stock(self, db: Session, *, portfolio: Portfolio, symbol: str) -> Optional[Portfolio]:
         try:
             stock_to_add = PortfolioStockCreate(stockSymbol=symbol, portfolioId=portfolio.id)

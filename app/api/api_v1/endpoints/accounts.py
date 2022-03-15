@@ -36,6 +36,6 @@ def read_user_me(
     current_account: models.Account = Depends(deps.get_current_account),
 ) -> Any:
     """
-    Get current account.
+    Get current account. For testing
     """
     return current_account

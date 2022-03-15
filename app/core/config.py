@@ -2,6 +2,10 @@ import os
 import secrets
 from dotenv import dotenv_values
 
+"""
+Configs
+"""
+
 config = {
     **dotenv_values(".env"),  # load sensitive variables
 }
